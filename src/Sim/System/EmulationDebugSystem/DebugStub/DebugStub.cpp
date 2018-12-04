@@ -44,12 +44,13 @@ DebugStub::DebugStub(SystemBase::SystemContext* context, int pid) :
 {
     ASSERT(
         context->targetArchitecture == "AlphaLinux" ||  
-        context->targetArchitecture == "RISCV32Linux", 
+        context->targetArchitecture == "RISCV32Linux" || 
+		context->targetArchitecture == "RISCV64Linux",
         "GDB Debug mode is currently available on AlphaLinux/RISCV32Linux only."
     );
     ASSERT(context->threads.GetSize() == 1, "Multithread GDB Debugging is not supported.");
 
-    m_reg64 = context->targetArchitecture == "AlphaLinux";
+    m_reg64 = context->targetArchitecture != "RISCV32Linux";
     m_context = context;
     m_pid = pid;
     m_stopExec = true;
