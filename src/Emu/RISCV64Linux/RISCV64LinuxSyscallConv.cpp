@@ -351,7 +351,7 @@ void RISCV64LinuxSyscallConv::Execute(OpEmulationState* opState)
         break;
 
     case syscall_id_faccessat:
-
+        syscall_faccessat(opState);
         break;
 /*
     case syscall_id_readv:
@@ -702,7 +702,12 @@ void RISCV64LinuxSyscallConv::write_stat32(u64 dest, const HostStat &src)
     EndianHostToSpecifiedInPlace(t_buf->st_blocks, bigEndian);
     EndianHostToSpecifiedInPlace(t_buf->st_blksize, bigEndian);
 }
-
+/*
+実行プログラムが指定したファイルのアクセス権をあるか確かめる
+アクセス権がある場合, return 0
+アクセス権がない場合, return -1 する
+全部 return 0するようにした
+*/
 void RISCV64LinuxSyscallConv::syscall_faccessat(EmulatorUtility::OpEmulationState* opState)
 {
     int result = 0;
