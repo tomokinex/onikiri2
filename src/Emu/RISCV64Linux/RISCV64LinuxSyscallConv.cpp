@@ -154,7 +154,8 @@ static struct {
     SYSCALLNAME(readlinkat, 4, "nssn"),
     SYSCALLNAME(sigaction, 3 , "npp"),
     SYSCALLNAME(fstatat, 4, "nspn"),
-    SYSCALLNAME(ioctl, 3, "xxx")
+    SYSCALLNAME(ioctl, 3, "xxx"),
+    SYSCALLNAME(faccessat, 4, "nsnn")
     /*
     SYSCALLNAME(readv, 3, "npn"),
     SYSCALLNAME(writev, 3, "npn"),
@@ -347,6 +348,10 @@ void RISCV64LinuxSyscallConv::Execute(OpEmulationState* opState)
 
     case syscall_id_getgid:
         syscall_getgid(opState);
+        break;
+
+    case syscall_id_faccessat:
+
         break;
 /*
     case syscall_id_readv:
@@ -698,3 +703,8 @@ void RISCV64LinuxSyscallConv::write_stat32(u64 dest, const HostStat &src)
     EndianHostToSpecifiedInPlace(t_buf->st_blksize, bigEndian);
 }
 
+void RISCV64LinuxSyscallConv::syscall_faccessat(EmulatorUtility::OpEmulationState* opState)
+{
+    int result = 0;
+    SetResult(true, result);
+}
