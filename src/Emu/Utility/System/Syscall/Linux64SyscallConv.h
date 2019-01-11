@@ -143,7 +143,7 @@ namespace Onikiri {
             virtual void syscall_stat64(EmulatorUtility::OpEmulationState* opState);
             virtual void syscall_lstat64(EmulatorUtility::OpEmulationState* opState);
             virtual void syscall_fstat64(EmulatorUtility::OpEmulationState* opState);
-
+            virtual void syscall_fstatat64(EmulatorUtility::OpEmulationState* opState);
             virtual void syscall_ioctl(EmulatorUtility::OpEmulationState* opState);
 //          virtual void syscall_readlink(EmulatorUtility::OpEmulationState* opState);
             virtual void syscall_mkdir(EmulatorUtility::OpEmulationState* opState);
